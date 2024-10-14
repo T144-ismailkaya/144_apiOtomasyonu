@@ -1,8 +1,10 @@
 package tests;
 
 import baseUrl.RestfulBaseUrl;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
+import org.json.JSONObject;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
@@ -44,5 +46,33 @@ public class C13_BaseUrlRestfull extends RestfulBaseUrl {
      “additionalneeds” : “wi-fi”
   }
      */
+
+    @Test
+    public void test15(){
+        specRestfull.pathParam("ilk","booking");
+        JSONObject bookingdates = new JSONObject();
+        bookingdates.put("checkin","2021-06-01");
+        bookingdates.put("checkout","2021-06-10");
+
+        JSONObject reqBody = new JSONObject();
+        reqBody.put("firstname","Ahmet");
+        reqBody.put("lastname","Bulut");
+        reqBody.put("totalprice",500);
+        reqBody.put("depositpaid",false);
+        reqBody.put("depositpaid",bookingdates);
+        reqBody.put("additionalneeds","wi-fi");
+
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .when().spec(specRestfull)
+                .body(reqBody.toString())
+                .post("/{ilk}");
+
+        response.prettyPrint();
+
+        response.then().assertThat()
+                .statusCode(200)
+                .body("booking.firstname",Matchers.equalTo("Ahmet"));
+    }
 
 }
