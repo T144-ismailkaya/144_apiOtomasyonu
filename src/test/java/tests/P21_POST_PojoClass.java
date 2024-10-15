@@ -1,17 +1,17 @@
 package tests;
 
-import baseUrl.JsonPlaceHolderBaseUrl;
+import baseUrl.RestfulBaseUrl;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pojos.RestfulBookindatesPOJO;
-import pojos.RestfulExpBodyPOJO;
+import pojos.RestfulBookingDatesPOJO;
+import pojos.RestfulExpBodPOJO;
 import pojos.RestfulReqBodyPOJO;
 
 import static io.restassured.RestAssured.given;
 
-public class P21_POST_PojoClass  extends JsonPlaceHolderBaseUrl {
+public class P21_POST_PojoClass  extends RestfulBaseUrl {
     /*
     https://restful-booker.herokuapp.com/booking url’ine
 asagidaki body’ye sahip bir POST request gonderdigimizde
@@ -47,26 +47,32 @@ Response Body // expected data
      */
 
     @Test
-    public void test23(){
-        specJPH.pathParam("pp1","booking");
-        RestfulBookindatesPOJO bookingdatesPOJO=new RestfulBookindatesPOJO("2024-09-30","2024-10-30");
-        RestfulReqBodyPOJO reqPOJO=new RestfulReqBodyPOJO("Ahmet","Bulut",false,"500","wi-fi",bookingdatesPOJO);
+    public void test01(){
 
-        RestfulExpBodyPOJO expPJPO=new RestfulExpBodyPOJO(24,reqPOJO);
+        specRestfull.pathParam("pp1","booking");
 
-        Response response=given().spec(specJPH).contentType(ContentType.JSON).when().body(reqPOJO).post("/{pp1}");
+        RestfulBookingDatesPOJO bookingDatesPOJO=new RestfulBookingDatesPOJO("2021-01-01","2021-01-10");
+        RestfulReqBodyPOJO reqBodyPOJO=new RestfulReqBodyPOJO("wi-fi",bookingDatesPOJO,false,500,"Bulut","Ahmet");
+
+
+        RestfulExpBodPOJO expBodPOJO=new RestfulExpBodPOJO(24,reqBodyPOJO);
+
+        Response response=given().spec(specRestfull).contentType(ContentType.JSON)
+                .when().body(reqBodyPOJO).post("/{pp1}");
+
+
         response.prettyPrint();
+        RestfulExpBodPOJO resPOJO=response.as(RestfulExpBodPOJO.class);
 
-        RestfulExpBodyPOJO resPOJO=response.as(RestfulExpBodyPOJO.class);
-
-
-        Assert.assertEquals(expPJPO.getBooking().getFirstname(),resPOJO.getBooking().getFirstname());
-        Assert.assertEquals(expPJPO.getBooking().getLastname(),resPOJO.getBooking().getLastname());
-        Assert.assertEquals(expPJPO.getBooking().getTotalprice(),resPOJO.getBooking().getTotalprice());
-        Assert.assertEquals(expPJPO.getBooking().getAdditionalneeds(),resPOJO.getBooking().getAdditionalneeds());
-        Assert.assertEquals(expPJPO.getBooking().isDepositpaid(),resPOJO.getBooking().isDepositpaid());
-        Assert.assertEquals(expPJPO.getBooking().getBookindatesPOJO().getCheckin(),resPOJO.getBooking().getBookindatesPOJO().getCheckin());
-        Assert.assertEquals(expPJPO.getBooking().getBookindatesPOJO().getCheckout(),resPOJO.getBooking().getBookindatesPOJO().getCheckout());
+        Assert.assertEquals(expBodPOJO.getBooking().getFirstname(),resPOJO.getBooking().getFirstname());
+        Assert.assertEquals(expBodPOJO.getBooking().getLastname(),resPOJO.getBooking().getLastname());
+        Assert.assertEquals(expBodPOJO.getBooking().getTotalprice(),resPOJO.getBooking().getTotalprice());
+        Assert.assertEquals(expBodPOJO.getBooking().isDepositpaid(),resPOJO.getBooking().isDepositpaid());
+        Assert.assertEquals(expBodPOJO.getBooking().getBookingdates().getCheckin(),resPOJO.getBooking().getBookingdates().getCheckin());
+        Assert.assertEquals(expBodPOJO.getBooking().getBookingdates().getCheckout(),resPOJO.getBooking().getBookingdates().getCheckout());
+        Assert.assertEquals(expBodPOJO.getBooking().getAdditionalneeds(),resPOJO.getBooking().getAdditionalneeds());
 
     }
+
+
 }

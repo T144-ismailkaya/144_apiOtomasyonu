@@ -36,7 +36,7 @@ Expected Data :
  */
 
     @Test
-    public void test22(){
+    public void putPojo(){
         specJPH.pathParams("pp1","posts","pp2","70");
 
         JPHPojos reqPOJO=new JPHPojos("Ahmet","Merhaba",10,70);
@@ -45,11 +45,15 @@ Expected Data :
 
         Response response=given().spec(specJPH).contentType(ContentType.JSON).when().body(reqPOJO).put("/{pp1}/{pp2}");
 
+
         JPHPojos resPOJO=response.as(JPHPojos.class);
 
         Assert.assertEquals(expPOOJO.getTitle(),resPOJO.getTitle());
         Assert.assertEquals(expPOOJO.getBody(),resPOJO.getBody());
         Assert.assertEquals(expPOOJO.getUserId(),resPOJO.getUserId());
         Assert.assertEquals(expPOOJO.getId(),resPOJO.getId());
+
+
+
     }
 }

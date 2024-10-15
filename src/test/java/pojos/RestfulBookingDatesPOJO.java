@@ -1,7 +1,14 @@
 package pojos;
 
-public class RestfulBookindatesPOJO {
+public class RestfulBookingDatesPOJO {
 
+
+    /*
+    “bookingdates” : {
+               “checkin” : “2021-06-01”,
+               “checkout” : “2021-06-10”
+           }
+     */
 
     private String checkin;
     private String checkout;
@@ -22,17 +29,17 @@ public class RestfulBookindatesPOJO {
         this.checkout = checkout;
     }
 
-    public RestfulBookindatesPOJO(String checkin, String checkout) {
+    public RestfulBookingDatesPOJO(String checkin, String checkout) {
         this.checkin = checkin;
         this.checkout = checkout;
     }
 
-    public RestfulBookindatesPOJO() {
+    public RestfulBookingDatesPOJO() {
     }
 
     @Override
     public String toString() {
-        return "RestfulBookindatesPOJO{" +
+        return "RestfulBookingDatesPOJO{" +
                 "checkin='" + checkin + '\'' +
                 ", checkout='" + checkout + '\'' +
                 '}';

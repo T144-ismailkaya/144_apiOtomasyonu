@@ -44,8 +44,8 @@ public class C18_PUT_DeSerialization extends JsonPlaceHolderBaseUrl {
     public void test20(){
         specJPH.pathParams("pp1","posts","pp2","70");
 
-        Map<String, Object> reqMapBody = JsonPlaceData.MapDataOlustur("Ahmet","Merhaba",10.0,70.0);
-        Map<String, Object> expMapBody = JsonPlaceData.MapDataOlustur("Ahmet","Merhaba",10.0,70.0);
+        Map<String, Object> reqMapBody = JsonPlaceData.MAPDataOlustur("Ahmet","Merhaba",10.0,70.0);
+        Map<String, Object> expMapBody = JsonPlaceData.MAPDataOlustur("Ahmet","Merhaba",10.0,70.0);
 
         Response response = given().spec(specJPH).contentType(ContentType.JSON).when().body(reqMapBody).put("/{pp1}/{pp2}");
         Map<String,Objects> resMap = response.as(HashMap.class);

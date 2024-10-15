@@ -2,7 +2,9 @@ package pojos;
 
 public class RestfulReqBodyPOJO {
 
+
     /*
+
     {
            “firstname” : “Ahmet”,
            “lastname” : “Bulut”,
@@ -18,10 +20,10 @@ public class RestfulReqBodyPOJO {
 
     private String firstname;
     private String lastname;
+    private int totalprice;
     private boolean depositpaid;
-    private String totalprice;
+    private RestfulBookingDatesPOJO bookingdates;
     private String additionalneeds;
-    private RestfulBookindatesPOJO bookindatesPOJO;
 
     public String getFirstname() {
         return firstname;
@@ -39,6 +41,14 @@ public class RestfulReqBodyPOJO {
         this.lastname = lastname;
     }
 
+    public int getTotalprice() {
+        return totalprice;
+    }
+
+    public void setTotalprice(int totalprice) {
+        this.totalprice = totalprice;
+    }
+
     public boolean isDepositpaid() {
         return depositpaid;
     }
@@ -47,12 +57,12 @@ public class RestfulReqBodyPOJO {
         this.depositpaid = depositpaid;
     }
 
-    public String getTotalprice() {
-        return totalprice;
+    public RestfulBookingDatesPOJO getBookingdates() {
+        return bookingdates;
     }
 
-    public void setTotalprice(String totalprice) {
-        this.totalprice = totalprice;
+    public void setBookingdates(RestfulBookingDatesPOJO bookingdates) {
+        this.bookingdates = bookingdates;
     }
 
     public String getAdditionalneeds() {
@@ -63,21 +73,13 @@ public class RestfulReqBodyPOJO {
         this.additionalneeds = additionalneeds;
     }
 
-    public RestfulBookindatesPOJO getBookindatesPOJO() {
-        return bookindatesPOJO;
-    }
-
-    public void setBookindatesPOJO(RestfulBookindatesPOJO bookindatesPOJO) {
-        this.bookindatesPOJO = bookindatesPOJO;
-    }
-
-    public RestfulReqBodyPOJO(String firstname, String lastname, boolean depositpaid, String totalprice, String additionalneeds, RestfulBookindatesPOJO bookindatesPOJO) {
-        this.firstname = firstname;
-        this.lastname = lastname;
+    public RestfulReqBodyPOJO(String additionalneeds, RestfulBookingDatesPOJO bookingdates, boolean depositpaid, int totalprice, String lastname, String firstname) {
+        this.additionalneeds = additionalneeds;
+        this.bookingdates = bookingdates;
         this.depositpaid = depositpaid;
         this.totalprice = totalprice;
-        this.additionalneeds = additionalneeds;
-        this.bookindatesPOJO = bookindatesPOJO;
+        this.lastname = lastname;
+        this.firstname = firstname;
     }
 
     public RestfulReqBodyPOJO() {
@@ -88,10 +90,10 @@ public class RestfulReqBodyPOJO {
         return "RestfulReqBodyPOJO{" +
                 "firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
+                ", totalprice=" + totalprice +
                 ", depositpaid=" + depositpaid +
-                ", totalprice='" + totalprice + '\'' +
+                ", bookingdates=" + bookingdates +
                 ", additionalneeds='" + additionalneeds + '\'' +
-                ", bookindatesPOJO=" + bookindatesPOJO +
                 '}';
     }
 }
